@@ -5,13 +5,9 @@ import { useMemo, useState } from "react";
 import { UserType } from "@/types/user";
 import { UserCard } from "./components";
 
-type Types = "all" | "following" | "followers" | "followingbutnotfollowers" | "followersbutnotfollowing";
+type FilterType = "all" | "following" | "followers" | "followingbutnotfollowers" | "followersbutnotfollowing";
 
-interface FilterType {
-  type: Types;
-}
-
-function filterUsers(type: Types, users: UserType[]) {
+function filterUsers(type: FilterType, users: UserType[]) {
   if (type === "followers") return users.filter((user) => user.follower);
   else if (type === "following") return users.filter((user) => user.following);
   else if (type === "followersbutnotfollowing") return users.filter((user) => !user.following && user.follower);
@@ -20,27 +16,33 @@ function filterUsers(type: Types, users: UserType[]) {
 }
 
 export default function Users({ token, users }: { token: string; users: UserType[] }) {
-  const [filter, setFilter] = useState<FilterType>({ type: "all" });
+  const [filter, setFilter] = useState<FilterType>("all");
 
-  const githubUsers = useMemo(() => filterUsers(filter.type, users), [users, filter]);
+  const githubUsers = useMemo(() => filterUsers(filter, users), [users, filter]);
   const totalCount = useMemo(() => githubUsers.length, [githubUsers]);
   const followersCount = useMemo(() => githubUsers.filter((user) => user.follower).length, [githubUsers]);
   const followingCount = useMemo(() => githubUsers.filter((user) => user.following).length, [githubUsers]);
 
   return (
-    <main className='pb-5 md:py-5 px-5 md:px-48 w-full flex flex-col gap-12'>
-      <div className='bg-white py-5 border-b border-b-gray-300 w-full flex flex-col md:flex-row justify-between gap-1 md:gap-5 sticky top-0 text-sm'>
+    <main className='pb-5 md:py-5 px-5 md:px-48 w-full flex flex-col gap-5'>
+      <div className='bg-white py-4 border-b border-b-gray-300 w-full flex flex-col md:flex-row justify-between gap-1.5 md:gap-5 sticky top-0 text-sm'>
         <div className='flex flex-row gap-3'>
-          <p>Total:{totalCount}</p>
-          <p>Following:{followingCount}</p>
-          <p>Followers:{followersCount}</p>
+          <p>
+            Total:<span className='text-blue-600'>{totalCount}</span>
+          </p>
+          <p>
+            Following:<span className='text-blue-600'>{followingCount}</span>{" "}
+          </p>
+          <p>
+            Followers:<span className='text-blue-600'>{followersCount}</span>{" "}
+          </p>
         </div>
 
         <select
-          value={filter.type}
+          value={filter}
           // @ts-expect-error
-          onChange={(e) => setFilter({ ...filter, type: e.target.value })}
-          className='border border-gray-300 py-0.5 px-2 outline-none rounded-md'
+          onChange={(e) => setFilter(e.target.value)}
+          className='border border-gray-300 py-1 md:py-0.5 px-2 outline-none rounded-md'
         >
           <option value='all'>All</option>
           <option value='following'>Following</option>
@@ -50,11 +52,13 @@ export default function Users({ token, users }: { token: string; users: UserType
         </select>
       </div>
 
-      <ul className='flex flex-col gap-7'>
-        {githubUsers.map((user) => (
-          <UserCard token={token} user={user} key={user.id} />
-        ))}
-      </ul>
+      <table>
+        <tbody className='flex flex-col'>
+          {githubUsers.map((user) => (
+            <UserCard token={token} user={user} key={user.id} />
+          ))}
+        </tbody>
+      </table>
     </main>
   );
 }

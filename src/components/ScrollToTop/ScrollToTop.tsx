@@ -24,7 +24,7 @@ export default function ScrollToTop() {
       type='button'
       aria-label='scroll to top'
       onClick={() => window.scroll({ top: 0, behavior: "smooth" })}
-      className={classNames(isVisiable ? "scale-100" : "scale-0", "bg-black", style.btn)}
+      className={classNames(isVisiable ? "scale-100" : "scale-0", "bg-blue-600", style.btn)}
     >
       <IoIosArrowUp size={25} />
     </button>
