@@ -28,7 +28,7 @@ export default function Users({ token, users }: { token: string; users: UserType
   const followingCount = useMemo(() => githubUsers.filter((user) => user.following).length, [githubUsers]);
 
   return (
-    <main className='frame w-full flex flex-col gap-12'>
+    <main className='pb-5 md:py-5 px-5 md:px-48 w-full flex flex-col gap-12'>
       <div className='bg-white py-5 border-b border-b-gray-300 w-full flex flex-col md:flex-row justify-between gap-1 md:gap-5 sticky top-0 text-sm'>
         <div className='flex flex-row gap-3'>
           <p>Total:{totalCount}</p>

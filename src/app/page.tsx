@@ -1,11 +1,21 @@
 import Users from "./Users";
 import env from "@/types/env";
+import pageSession from "@/lib/auth";
+import { Login } from "./components";
+import { Logout } from "@/components";
 import { getUsers } from "@/lib/github";
 
 export const revalidate = 0;
 
 export default async function Home() {
-  const users = await getUsers();
+  const session = await pageSession();
+  if (!session) return <Login />;
 
-  return <Users token={env.GITHUB_TOKEN} users={users} />;
+  const users = await getUsers();
+  return (
+    <>
+      <Users token={env.GITHUB_TOKEN} users={users} />
+      {session && <Logout />}
+    </>
+  );
 }
