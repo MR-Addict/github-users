@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.frame {
-  @apply py-5 px-5 md:px-48;
-}
-
 body {
   min-height: 100vh;
   min-height: 100dvh;

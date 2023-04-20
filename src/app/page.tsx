@@ -12,8 +12,8 @@ export default async function Home() {
   const users = await getUsers(session.accessToken);
   return (
     <>
-      <Users token={session.accessToken} users={users} />
-      {session && <Logout />}
+      <Users token={session.accessToken} avatar={session.user?.image || ""} users={users} />
+      <Logout />
     </>
   );
 }

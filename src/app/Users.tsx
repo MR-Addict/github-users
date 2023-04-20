@@ -1,63 +1,80 @@
 "use client";
 
+import Image from "next/image";
 import { TbUsers } from "react-icons/tb";
 import { useMemo, useState } from "react";
 
 import { UserType } from "@/types/user";
 import { UserCard } from "./components";
+import { formatNumber } from "@/lib/utils";
 
 interface FilterType {
   type: "all" | "following" | "followers" | "followingbutnotfollowers" | "followersbutnotfollowing";
-  keywords: string;
+  searchWords: string;
 }
 
 function filterUsers(filter: FilterType, users: UserType[]) {
-  let backupUesrs = [...users];
-  if (filter.type === "followers") backupUesrs = users.filter((user) => user.follower);
-  else if (filter.type === "following") backupUesrs = users.filter((user) => user.following);
+  let newUsers = [...users];
+  if (filter.type === "followers") newUsers = users.filter((user) => user.follower);
+  else if (filter.type === "following") newUsers = users.filter((user) => user.following);
   else if (filter.type === "followersbutnotfollowing")
-    backupUesrs = users.filter((user) => !user.following && user.follower);
+    newUsers = users.filter((user) => !user.following && user.follower);
   else if (filter.type === "followingbutnotfollowers")
-    backupUesrs = users.filter((user) => user.following && !user.follower);
+    newUsers = users.filter((user) => user.following && !user.follower);
 
   type KeyType = "login" | "name" | "email" | "bio" | "company" | "location";
   const keys: KeyType[] = ["login", "name", "email", "bio", "company", "location"];
-  backupUesrs = backupUesrs.filter((user) => keys.some((key) => user[key]?.toLowerCase().includes(filter.keywords)));
+  newUsers = newUsers.filter((user) => keys.some((key) => user[key]?.toLowerCase().includes(filter.searchWords)));
 
-  return backupUesrs;
+  return newUsers;
 }
 
-export default function Users({ token, users }: { token: string; users: UserType[] }) {
-  const [filter, setFilter] = useState<FilterType>({ type: "all", keywords: "" });
+export default function Users({ token, avatar, users }: { token: string; avatar: string; users: UserType[] }) {
+  const [filter, setFilter] = useState<FilterType>({ type: "all", searchWords: "" });
 
   const githubUsers = useMemo(() => filterUsers(filter, users), [users, filter]);
+  const totalCount = useMemo(() => githubUsers.length, [githubUsers]);
   const followersCount = useMemo(() => githubUsers.filter((user) => user.follower).length, [githubUsers]);
   const followingCount = useMemo(() => githubUsers.filter((user) => user.following).length, [githubUsers]);
 
   return (
-    <main className='px-5 md:px-48 w-full flex flex-col'>
-      <div className='z-10 bg-white py-5 sticky top-0 text-sm w-full flex flex-col gap-1.5 items-end'>
-        <div className='flex flex-row items-center gap-0.5'>
-          <p className='text-gray-500'>
-            <TbUsers />
-          </p>
-          <p>
-            {followersCount} <span className='text-gray-500'>followers</span>
-          </p>
-          <p>•</p>
-          <p>
-            {followingCount} <span className='text-gray-500'>following</span>
-          </p>
+    <main className='w-full flex flex-col'>
+      <section className='w-full z-10 bg-white sticky top-0 text-sm flex flex-col'>
+        <div className='px-4 md:px-48 py-5 shadow-sm w-full border-b flex flex-row items-center justify-between gap-1 border-gray-300'>
+          <Image
+            alt='avatar'
+            width={100}
+            height={100}
+            src={avatar}
+            className='hidden md:block w-6 h-6 md:w-8 md:h-8 rounded-full'
+          />
+
+          <div className='flex flex-row items-center flex-wrap gap-0.5'>
+            <p className='text-gray-500'>
+              <TbUsers />
+            </p>
+            <p>
+              {formatNumber(followersCount)} <span className='text-gray-500'>followers</span>
+            </p>
+            <p>•</p>
+            <p>
+              {formatNumber(followingCount)} <span className='text-gray-500'>following</span>
+            </p>
+            <p>•</p>
+            <p>
+              {formatNumber(totalCount)} <span className='text-gray-500'>total</span>
+            </p>
+          </div>
         </div>
 
-        <div className='w-full flex flex-col md:flex-row gap-1 md:gap-3'>
+        <div className='px-4 md:px-48 pt-3 md:pt-5 w-full flex flex-col md:flex-row gap-3'>
           <div className='w-full'>
             <input
-              value={filter.keywords}
-              name='filter keywords'
+              value={filter.searchWords}
+              name='filter searchWords'
               placeholder='Search...'
-              onChange={(e) => setFilter({ ...filter, keywords: e.target.value })}
-              className='w-full py-1 px-2 rounded-md border border-gray-300 outline-none focus:border-blue-600'
+              onChange={(e) => setFilter({ ...filter, searchWords: e.target.value.toLowerCase() })}
+              className='w-full py-1.5 px-2 rounded-md border border-gray-500 outline-none focus:border-blue-600'
             />
           </div>
 
@@ -66,7 +83,7 @@ export default function Users({ token, users }: { token: string; users: UserType
             name='filter type'
             // @ts-expect-error
             onChange={(e) => setFilter({ ...filter, type: e.target.value })}
-            className='border border-gray-300 py-1 md:py-0.5 px-2 outline-none rounded-md focus:border-blue-600'
+            className='border border-gray-500 py-1.5 px-2 outline-none rounded-md focus:border-blue-600'
           >
             <option value='all'>All</option>
             <option value='following'>Following</option>
@@ -75,15 +92,17 @@ export default function Users({ token, users }: { token: string; users: UserType
             <option value='followersbutnotfollowing'>Followers But Not Following</option>
           </select>
         </div>
-      </div>
+      </section>
 
-      <table>
-        <tbody className='flex flex-col'>
-          {githubUsers.map((user) => (
-            <UserCard token={token} user={user} key={user.id} />
-          ))}
-        </tbody>
-      </table>
+      <section className='w-full px-4 md:px-48 py-5'>
+        <table className='w-full'>
+          <tbody className='flex flex-col'>
+            {githubUsers.map((user) => (
+              <UserCard token={token} user={user} key={user.id} />
+            ))}
+          </tbody>
+        </table>
+      </section>
     </main>
   );
 }

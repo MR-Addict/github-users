@@ -1,8 +1,11 @@
 "use client";
 
+import classNames from "classnames";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { AiFillGithub } from "react-icons/ai";
+
+import style from "./Login.module.css";
 
 export default function Login() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -16,7 +19,7 @@ export default function Login() {
           setIsSubmitting(true);
           signIn("github");
         }}
-        className='border border-gray-300 bg-gray-100 rounded-md flex flex-row items-center justify-between gap-3 py-2 px-6 hover:bg-[#ededee] duration-100 disabled:cursor-not-allowed'
+        className={classNames(style.btn, "bg-gradient-to-br from-cyan-500 to-blue-600 text-white")}
       >
         <AiFillGithub size={30} />
         <span>Login with Github</span>

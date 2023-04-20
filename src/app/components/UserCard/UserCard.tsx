@@ -10,9 +10,15 @@ import { Tooltip } from "@/components";
 
 export default function UserCard({ token, user }: { token: string; user: UserType }) {
   return (
-    <tr className='border-b border-gray-300 flex flex-row justify-between py-4'>
-      <td className='w-16 h-16 rounded-full mr-2 md:mr-5'>
-        <Image src={user.avatarUrl} alt={user.login} width={100} height={100} className='rounded-full' />
+    <tr className='border-b border-gray-300 flex flex-col md:flex-row justify-between py-4'>
+      <td className='w-16 h-fit rounded-full mr-2 md:mr-5'>
+        <Image
+          src={user.avatarUrl}
+          alt={user.login}
+          width={100}
+          height={100}
+          className='rounded-full border border-gray-300'
+        />
       </td>
 
       <td className='w-full flex flex-col items-start justify-between gap-1 md:gap-2'>
