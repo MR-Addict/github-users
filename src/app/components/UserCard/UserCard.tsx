@@ -10,8 +10,8 @@ import { Tooltip } from "@/components";
 
 export default function UserCard({ token, user }: { token: string; user: UserType }) {
   return (
-    <tr className='border-b border-gray-300 flex flex-col md:flex-row justify-between py-4'>
-      <td className='w-full md:w-fit flex flex-row items-center justify-between gap-2 md:mr-5'>
+    <li className='border-b border-gray-300 flex flex-col md:flex-row justify-between gap-1 md:gap-5 py-5'>
+      <div className='w-full md:w-fit flex flex-row items-center justify-between gap-2'>
         <div className='w-16 h-fit rounded-full'>
           <Image
             src={user.avatarUrl}
@@ -26,9 +26,9 @@ export default function UserCard({ token, user }: { token: string; user: UserTyp
           {user.follower ? <AiFillHeart fill='#db2777' /> : <AiOutlineHeart />}
           <Button token={token} user={user} />
         </div>
-      </td>
+      </div>
 
-      <td className='w-full flex flex-col items-start justify-between gap-1 md:gap-2'>
+      <div className='w-full flex flex-col items-start justify-between gap-1 md:gap-2'>
         <div className='flex flex-row gap-1 flex-wrap'>
           {user.name && <h1>{user.name}</h1>}
           {user.name && <p>•</p>}
@@ -63,9 +63,9 @@ export default function UserCard({ token, user }: { token: string; user: UserTyp
         )}
 
         {user.bio && <p className='text-gray-500 text-sm'>{user.bio}</p>}
-      </td>
+      </div>
 
-      <td className='hidden md:flex flex-col items-center justify-center gap-1'>
+      <div className='hidden md:flex flex-col items-center justify-center gap-1'>
         {user.follower ? (
           <Tooltip title={`${user.login} is following you`}>
             <AiFillHeart fill='rgb(219 39 119)' />
@@ -77,7 +77,7 @@ export default function UserCard({ token, user }: { token: string; user: UserTyp
         )}
 
         <Button token={token} user={user} />
-      </td>
-    </tr>
+      </div>
+    </li>
   );
 }

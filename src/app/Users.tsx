@@ -93,13 +93,11 @@ export default function Users({ token, avatar, users }: { token: string; avatar:
       </section>
 
       <section className='w-full px-4 md:px-48 py-5'>
-        <table className='w-full'>
-          <tbody className='flex flex-col'>
-            {githubUsers.map((user) => (
-              <UserCard token={token} user={user} key={user.id} />
-            ))}
-          </tbody>
-        </table>
+        <ul className='w-full flex flex-col'>
+          {githubUsers.map((user) => (
+            <UserCard token={token} user={user} key={user.id} />
+          ))}
+        </ul>
       </section>
     </main>
   );
