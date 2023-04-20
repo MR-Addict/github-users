@@ -1,0 +1,30 @@
+.tip {
+  @apply relative flex items-center justify-center;
+}
+
+.tip:hover::before {
+  @apply md:visible md:opacity-100;
+}
+
+.tip::before {
+  content: attr(tip-data);
+  box-shadow: 0 0 5px gray;
+  @apply bg-gray-700;
+  @apply duration-100 z-10 hidden md:block absolute w-max max-w-lg rounded-md px-2 py-1.5 text-white opacity-0 invisible;
+}
+
+.top::before {
+  @apply left-1/2 -top-2 -translate-x-1/2 -translate-y-full;
+}
+
+.bottom::before {
+  @apply left-1/2 -bottom-2 -translate-x-1/2 translate-y-full;
+}
+
+.left::before {
+  @apply -left-2 top-1/2 -translate-x-full -translate-y-1/2;
+}
+
+.right::before {
+  @apply -right-2 top-1/2 translate-x-full -translate-y-1/2;
+}

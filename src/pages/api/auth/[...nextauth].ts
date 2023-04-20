@@ -1,31 +1,32 @@
 import NextAuth from "next-auth";
 import type { NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import GitHubProvider from "next-auth/providers/github";
 
 import env from "@/types/env";
 
 export const authOptions: NextAuthOptions = {
-  session: { strategy: "jwt" },
   secret: env.NEXTAUTH_SECRET,
+  session: { strategy: "jwt" },
   jwt: { secret: env.NEXTAUTH_SECRET },
 
   providers: [
-    CredentialsProvider({
-      name: "credentials",
-
-      credentials: {
-        username: { label: "Email", type: "email", placeholder: "Email" },
-        password: { label: "Password", type: "password", placeholder: "Password" },
-      },
-
-      async authorize(credentials) {
-        const { username, password } = credentials as { username: string; password: string };
-        if (username === env.LOGIN_USERNAME && password === env.LOGIN_PASSWORD)
-          return { id: username, name: username, email: username };
-        else return null;
-      },
+    GitHubProvider({
+      clientId: env.GITHUB_CLIENTID,
+      clientSecret: env.GITHUB_SECRET,
+      authorization: { params: { scope: "read:user user:email user:follow" } },
     }),
   ],
+
+  callbacks: {
+    async jwt({ token, account }) {
+      if (account) token.accessToken = account.access_token;
+      return token;
+    },
+    async session({ session, token }) {
+      session.accessToken = token.accessToken;
+      return session;
+    },
+  },
 };
 
 export default NextAuth(authOptions);

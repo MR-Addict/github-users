@@ -11,8 +11,8 @@ function filterUsers(following: GithubUserType[], followers: GithubUserType[]) {
   return { followingButNotFollowers, followersButNotFollowing };
 }
 
-export default async function getUsers() {
-  const [following, followers] = await Promise.all([getFollowing(), getFollowers()]);
+export default async function getUsers(token: string) {
+  const [following, followers] = await Promise.all([getFollowing(token), getFollowers(token)]);
   const { followingButNotFollowers, followersButNotFollowing } = filterUsers(following, followers);
 
   const uniqueUsers: GithubUserType[] = Array.from(

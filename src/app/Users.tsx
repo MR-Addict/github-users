@@ -25,7 +25,7 @@ export default function Users({ token, users }: { token: string; users: UserType
 
   return (
     <main className='pb-5 md:py-5 px-5 md:px-48 w-full flex flex-col gap-5'>
-      <div className='bg-white py-4 border-b border-b-gray-300 w-full flex flex-col md:flex-row justify-between gap-1.5 md:gap-5 sticky top-0 text-sm'>
+      <div className='z-10 bg-white py-4 border-b border-b-gray-300 w-full flex flex-col md:flex-row justify-between gap-1.5 md:gap-5 sticky top-0 text-sm'>
         <div className='flex flex-row gap-3'>
           <p>
             Total:<span className='text-blue-600'>{totalCount}</span>

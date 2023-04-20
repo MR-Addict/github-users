@@ -14,9 +14,8 @@ This project help you manage your github followers. It can help find:
 Add `.env` file:
 
 ```env
-LOGIN_USERNAME="login_username"
-LOGIN_PASSWORD="login_password"
-GITHUB_TOKEN="create_a_github_token"
+GITHUB_CLIENTID="login_username"
+GITHUB_SECRET="login_password"
 NEXTAUTH_SECRET="create_a_nextauth_secret"
 NEXTAUTH_URL="https://your.website.domain.com/"
 ```
@@ -35,9 +34,9 @@ npm start
 
 > Good to know:
 >
-> You need to add username and password for protection as well as your github token for managing.
+> You need to create a github oauth app for managing which includes github clientid and screat. You can find information [here](https://docs.github.com/apps/building-oauth-apps/creating-an-oauth-app) about how to create a github oauth app.
 >
-> next auth secret and net auth url are for deploying, you can use any characters as secrets and url you will deploy on, such as http://localhost:3000/
+> Next auth secret and url are for deploying, you can use any characters as secrets and url you will deploy on, such as http://localhost:3000/ if you test it locally.
 
 ## 3. Available Links
 

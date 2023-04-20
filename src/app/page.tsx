@@ -1,9 +1,7 @@
 import Users from "./Users";
-import env from "@/types/env";
 import pageSession from "@/lib/auth";
-import { Login } from "./components";
-import { Logout } from "@/components";
-import { getUsers } from "@/lib/github";
+import { getUsers, readLocalUsers } from "@/lib/github";
+import { Logout, Login } from "@/components";
 
 export const revalidate = 0;
 
@@ -11,10 +9,11 @@ export default async function Home() {
   const session = await pageSession();
   if (!session) return <Login />;
 
-  const users = await getUsers();
+  // const users = await getUsers(session.accessToken);
+  const users = readLocalUsers();
   return (
     <>
-      <Users token={env.GITHUB_TOKEN} users={users} />
+      <Users token={session.accessToken} users={users} />
       {session && <Logout />}
     </>
   );

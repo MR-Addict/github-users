@@ -6,6 +6,7 @@ import { AiOutlineMail, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import Button from "../Button/Button";
 import style from "./UserCard.module.css";
 import { UserType } from "@/types/user";
+import { Tooltip } from "@/components";
 
 export default function UserCard({ token, user }: { token: string; user: UserType }) {
   return (
@@ -58,7 +59,15 @@ export default function UserCard({ token, user }: { token: string; user: UserTyp
       </td>
 
       <td className='hidden md:flex flex-col items-center justify-center gap-1'>
-        {user.follower ? <AiFillHeart fill='rgb(219 39 119)' /> : <AiOutlineHeart />}
+        {user.follower ? (
+          <Tooltip title={`${user.login} is following you`}>
+            <AiFillHeart fill='rgb(219 39 119)' />
+          </Tooltip>
+        ) : (
+          <Tooltip title={`${user.login} isn't following you`}>
+            <AiOutlineHeart />
+          </Tooltip>
+        )}
 
         <Button token={token} user={user} />
       </td>

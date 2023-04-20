@@ -1,11 +1,10 @@
 import z from "zod";
 
 const Env = z.object({
-  GITHUB_TOKEN: z.string(),
-  NEXTAUTH_URL: z.string().optional(),
+  GITHUB_SECRET: z.string(),
+  GITHUB_CLIENTID: z.string(),
   NEXTAUTH_SECRET: z.string(),
-  LOGIN_USERNAME: z.string(),
-  LOGIN_PASSWORD: z.string(),
+  NEXTAUTH_URL: z.string().optional(),
 });
 
 const env = Env.parse(process.env);

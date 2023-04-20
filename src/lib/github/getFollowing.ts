@@ -1,6 +1,5 @@
 import z from "zod";
 
-import env from "@/types/env";
 import { GithubUser } from "@/types/user";
 
 const PageInfo = z.object({
@@ -35,11 +34,11 @@ function query(cursor: string) {
   `;
 }
 
-async function fetchOnePageUsers(cursor: string) {
+async function fetchOnePageUsers(cursor: string, token: string) {
   try {
     const result = await fetch("https://api.github.com/graphql", {
       method: "POST",
-      headers: { Authorization: `Bearer ${env.GITHUB_TOKEN}`, "Content-Type": "application/json" },
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
       body: JSON.stringify({ query: query(cursor) }),
     }).then((res) => res.json());
 
@@ -50,11 +49,11 @@ async function fetchOnePageUsers(cursor: string) {
   }
 }
 
-export default async function getFollowers() {
+export default async function getFollowers(token: string) {
   let users = [];
   let pageInfo = { endCursor: "", hasNextPage: true };
   while (pageInfo.hasNextPage) {
-    const result = await fetchOnePageUsers(pageInfo.endCursor);
+    const result = await fetchOnePageUsers(pageInfo.endCursor, token);
     users.push(...result.nodes);
     pageInfo = result.pageInfo;
   }
