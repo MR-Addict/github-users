@@ -2,7 +2,7 @@
 
 ## 1. What's it for?
 
-This project help you manage your github followers. It can help find:
+This project help you manage your github followers. It can help manage:
 
 - Who're your followers
 - Who you're following
@@ -14,9 +14,9 @@ This project help you manage your github followers. It can help find:
 Add `.env` file:
 
 ```env
-GITHUB_CLIENTID="login_username"
-GITHUB_SECRET="login_password"
-NEXTAUTH_SECRET="create_a_nextauth_secret"
+GITHUB_CLIENTID="create_a_github_oauth_app_clientid"
+GITHUB_SECRET="create_a_github_oauth_app_screat"
+NEXTAUTH_SECRET="create_a_next_auth_secret"
 NEXTAUTH_URL="https://your.website.domain.com/"
 ```
 
