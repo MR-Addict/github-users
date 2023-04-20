@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { TbUsers } from "react-icons/tb";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 import { UserType } from "@/types/user";
 import { UserCard } from "./components";
@@ -10,7 +10,7 @@ import { formatNumber } from "@/lib/utils";
 
 interface FilterType {
   type: "all" | "following" | "followers" | "followingbutnotfollowers" | "followersbutnotfollowing";
-  searchWords: string;
+  searchKeywords: string;
 }
 
 function filterUsers(filter: FilterType, users: UserType[]) {
@@ -24,18 +24,24 @@ function filterUsers(filter: FilterType, users: UserType[]) {
 
   type KeyType = "login" | "name" | "email" | "bio" | "company" | "location";
   const keys: KeyType[] = ["login", "name", "email", "bio", "company", "location"];
-  newUsers = newUsers.filter((user) => keys.some((key) => user[key]?.toLowerCase().includes(filter.searchWords)));
+  newUsers = newUsers.filter((user) => keys.some((key) => user[key]?.toLowerCase().includes(filter.searchKeywords)));
 
   return newUsers;
 }
 
 export default function Users({ token, avatar, users }: { token: string; avatar: string; users: UserType[] }) {
-  const [filter, setFilter] = useState<FilterType>({ type: "all", searchWords: "" });
+  const [searchKeywords, setSearchKeywords] = useState("");
+  const [filter, setFilter] = useState<FilterType>({ type: "all", searchKeywords: "" });
 
   const githubUsers = useMemo(() => filterUsers(filter, users), [users, filter]);
   const totalCount = useMemo(() => githubUsers.length, [githubUsers]);
   const followersCount = useMemo(() => githubUsers.filter((user) => user.follower).length, [githubUsers]);
   const followingCount = useMemo(() => githubUsers.filter((user) => user.following).length, [githubUsers]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setFilter({ ...filter, searchKeywords }), 500);
+    return () => clearTimeout(timer);
+  }, [searchKeywords]);
 
   return (
     <main className='w-full flex flex-col'>
@@ -48,7 +54,7 @@ export default function Users({ token, avatar, users }: { token: string; avatar:
           className='hidden md:block w-6 h-6 md:w-8 md:h-8 rounded-full'
         />
 
-        <div className='flex flex-row items-center whitespace-nowrap gap-0.5'>
+        <div className='w-full flex flex-row items-center whitespace-nowrap gap-0.5'>
           <p className='text-gray-500'>
             <TbUsers />
           </p>
@@ -68,10 +74,10 @@ export default function Users({ token, avatar, users }: { token: string; avatar:
         <div className='w-full flex flex-col md:flex-row justify-end gap-3'>
           <div className='w-full flex flex-row justify-end'>
             <input
-              value={filter.searchWords}
-              name='filter searchWords'
+              value={searchKeywords}
               placeholder='Search...'
-              onChange={(e) => setFilter({ ...filter, searchWords: e.target.value.toLowerCase() })}
+              name='filter searchKeywords'
+              onChange={(e) => setSearchKeywords(e.target.value.toLocaleLowerCase())}
               className='w-full md:max-w-xs py-1 px-2 rounded-md border border-gray-500 outline-none focus:border-blue-600'
             />
           </div>

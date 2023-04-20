@@ -3,7 +3,7 @@ import { GoLocation } from "react-icons/go";
 import { HiOutlineBuildingOffice } from "react-icons/hi2";
 import { AiOutlineMail, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
-import Button from "../FollowButton/FollowButton";
+import FollowButton from "../FollowButton/FollowButton";
 import style from "./UserCard.module.css";
 import { UserType } from "@/types/user";
 import { Tooltip } from "@/components";
@@ -24,7 +24,7 @@ export default function UserCard({ token, user }: { token: string; user: UserTyp
 
         <div className='md:hidden flex flex-row items-center gap-1'>
           {user.follower ? <AiFillHeart fill='#db2777' /> : <AiOutlineHeart />}
-          <Button token={token} user={user} />
+          <FollowButton token={token} user={user} />
         </div>
       </div>
 
@@ -76,7 +76,7 @@ export default function UserCard({ token, user }: { token: string; user: UserTyp
           </Tooltip>
         )}
 
-        <Button token={token} user={user} />
+        <FollowButton token={token} user={user} />
       </div>
     </li>
   );
