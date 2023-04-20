@@ -34,9 +34,9 @@ npm start
 
 > Good to know:
 >
-> You need to create a github oauth app for managing which includes github clientid and screat. You can find information [here](https://docs.github.com/apps/building-oauth-apps/creating-an-oauth-app) about how to create a github oauth app.
+> You need to create a github oauth app for managing which includes github clientid and secret. You can find information [here](https://docs.github.com/apps/building-oauth-apps/creating-an-oauth-app) about how to create a github oauth app.
 >
-> Next auth secret and url are for deploying, you can use any characters as secrets and url you will deploy on, such as http://localhost:3000/ if you test it locally.
+> Next auth secret and url are for deploying. You can use any characters as secrets and url you deploy on. For example http://localhost:3000/ if you build and test locally.
 
 ## 3. Available Links
 
