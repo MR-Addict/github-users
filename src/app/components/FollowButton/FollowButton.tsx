@@ -7,7 +7,7 @@ import { UserType } from "@/types/user";
 import { LoadingDots } from "@/components";
 import { usePopupContext } from "@/contexts";
 
-export default function Button({ token, user }: { token: string; user: UserType }) {
+export default function FollowButton({ token, user }: { token: string; user: UserType }) {
   const router = useRouter();
   const { popup } = usePopupContext();
   const [isSubmitting, setIsSubmitting] = useState(false);
