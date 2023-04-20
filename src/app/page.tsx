@@ -9,8 +9,8 @@ export default async function Home() {
   const session = await pageSession();
   if (!session) return <Login />;
 
-  // const users = await getUsers(session.accessToken);
-  const users = readLocalUsers();
+  const users = await getUsers(session.accessToken);
+  // const users = readLocalUsers();
   return (
     <>
       <Users token={session.accessToken} users={users} />
