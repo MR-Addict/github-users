@@ -9,9 +9,10 @@ type FilterType = "all" | "following" | "followers" | "followingbutnotfollowers"
 
 function filterUsers(users: UserType[], filter: FilterType) {
   if (filter === "following") return users.filter((user) => user.following);
+  else if (filter === "followers") return users.filter((user) => user.follower);
   else if (filter === "followersbutnotfollowing") return users.filter((user) => !user.following && user.follower);
   else if (filter === "followingbutnotfollowers") return users.filter((user) => user.following && !user.follower);
-  return users.filter((user) => user.follower);
+  return users;
 }
 
 function searchUsers(users: UserType[], searchKeywords: string) {
