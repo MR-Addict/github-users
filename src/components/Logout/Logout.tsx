@@ -16,7 +16,7 @@ export default function Logout() {
         setIsSubmitting(true);
         signOut();
       }}
-      className='fixed bottom-8 right-5 md:right-10 shadow-md w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center disabled:cursor-not-allowed'
+      className='fixed bottom-8 right-5 md:right-10 shadow-md w-10 h-10 gradient-bg text-white rounded-full flex items-center justify-center disabled:cursor-not-allowed'
     >
       <MdLogout size={19} />
     </button>

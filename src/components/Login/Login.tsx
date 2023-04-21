@@ -15,11 +15,11 @@ export default function Login() {
       <button
         type='button'
         disabled={isSubmitting}
+        className={classNames(style.btn, "gradient-bg")}
         onClick={() => {
           setIsSubmitting(true);
           signIn("github");
         }}
-        className={classNames(style.btn, "bg-gradient-to-br from-cyan-500 to-blue-600 text-white")}
       >
         <AiFillGithub size={30} />
         <span>Login with Github</span>

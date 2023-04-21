@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { GoLocation } from "react-icons/go";
 import { HiOutlineBuildingOffice } from "react-icons/hi2";
@@ -68,7 +70,7 @@ export default function UserCard({ token, user }: { token: string; user: UserTyp
       <div className='hidden md:flex flex-col items-center justify-center gap-1'>
         {user.follower ? (
           <Tooltip title={`${user.login} is following you`}>
-            <AiFillHeart fill='rgb(219 39 119)' />
+            <AiFillHeart fill='#db2777' />
           </Tooltip>
         ) : (
           <Tooltip title={`${user.login} isn't following you`}>

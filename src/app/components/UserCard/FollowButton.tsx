@@ -1,5 +1,6 @@
 "use client";
 
+import classNames from "classnames";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -41,7 +42,10 @@ export default function FollowButton({ token, user }: { token: string; user: Use
       type='button'
       onClick={handleClick}
       disabled={isSubmitting}
-      className='text-[12px] disabled:cursor-not-allowed bg-gray-100 hover:bg-gray-200 duration-100 h-7 w-16 rounded-md border border-gray-300 flex items-center justify-center'
+      className={classNames(
+        "text-[12px] disabled:cursor-not-allowed hover:shadow-sm duration-300 h-7 w-16 rounded-md flex items-center justify-center",
+        { "gradient-bg": user.following, "bg-gray-100 border border-gray-300": !user.following }
+      )}
     >
       {isSubmitting && <LoadingDots />}
       {!isSubmitting && <span>{user.following ? "Unfollow" : "Follow"}</span>}

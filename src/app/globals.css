@@ -7,3 +7,7 @@ body {
   min-height: 100svh;
   @apply flex flex-col items-center justify-between text-gray-700;
 }
+
+.gradient-bg {
+  @apply bg-gradient-to-br from-cyan-500 to-blue-600 text-white;
+}

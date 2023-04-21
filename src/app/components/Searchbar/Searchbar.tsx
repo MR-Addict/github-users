@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { UserType } from "@/types/user";
 import { useClientContext } from "@/app/contexts";
 
-type FilterType = "all" | "following" | "followers" | "followingbutnotfollowers" | "followersbutnotfollowing";
+export type FilterType = "all" | "following" | "followers" | "followingbutnotfollowers" | "followersbutnotfollowing";
 
 function filterUsers(users: UserType[], filter: FilterType) {
   if (filter === "following") return users.filter((user) => user.following);
@@ -28,7 +28,7 @@ export default function Searchbar() {
 
   useEffect(() => {
     setCurrentPage(0);
-    setGithubUsers(filterUsers(rawUsers, filter));
+    setGithubUsers(searchUsers(filterUsers(rawUsers, filter), searchKeywords));
   }, [filter]);
 
   useEffect(() => {

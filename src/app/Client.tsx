@@ -32,7 +32,7 @@ export default function Client({ token, avatar }: { token: string; avatar: strin
           window.scroll({ top: 0, behavior: "auto" });
         }}
         className={classNames(
-          { "text-white bg-blue-600": page === currentPage },
+          { "text-white gradient-bg": page === currentPage },
           "text-sm w-6 h-6 place-items-center rounded-sm border border-gray-300"
         )}
       >
@@ -43,12 +43,12 @@ export default function Client({ token, avatar }: { token: string; avatar: strin
 
   return (
     <main className='w-full flex flex-col'>
-      <section className='w-full px-4 md:px-48 py-5 shadow-sm z-10 border-b border-gray-300 bg-white sticky top-0 text-sm flex flex-col md:flex-row items-center justify-between gap-3'>
+      <section className='w-full px-5 md:px-48 py-5 shadow-sm z-10 border-b border-gray-300 bg-white sticky top-0 text-sm flex flex-col md:flex-row items-center justify-between gap-3'>
         <Avatar avatar={avatar} />
         <Searchbar />
       </section>
 
-      <section className='w-full flex flex-col items-center gap-5 px-4 md:px-48 py-5'>
+      <section className='bg-gray-100 w-full flex flex-col items-center gap-5 px-5 md:px-48 py-5'>
         {/* got results */}
         {currentUsers.length > 0 && (
           <ul className='w-full flex flex-col'>
@@ -61,7 +61,7 @@ export default function Client({ token, avatar }: { token: string; avatar: strin
         {/* no results */}
         {currentUsers.length === 0 && <h1>No results</h1>}
 
-        <section aria-label='pagination' className='flex flex-row items-center gap-1'>
+        <section aria-label='pagination' className='flex flex-row items-center gap-1.5'>
           {/* first button */}
           {currentUsers.length > 0 && <Button page={0} />}
 
