@@ -1,14 +1,17 @@
+"use client";
+
 import Image from "next/image";
 import { useMemo } from "react";
 import { TbUsers } from "react-icons/tb";
 
-import { UserType } from "@/types/user";
 import { formatNumber } from "@/lib/utils";
+import { useClientContext } from "@/app/contexts";
 
-export default function Avatar({ avatar, users }: { avatar: string; users: UserType[] }) {
-  const totalCount = useMemo(() => users.length, [users]);
-  const followersCount = useMemo(() => users.filter((user) => user.follower).length, [users]);
-  const followingCount = useMemo(() => users.filter((user) => user.following).length, [users]);
+export default function Avatar({ avatar }: { avatar: string }) {
+  const { githubUsers } = useClientContext();
+  const totalCount = useMemo(() => githubUsers.length, [githubUsers]);
+  const followersCount = useMemo(() => githubUsers.filter((user) => user.follower).length, [githubUsers]);
+  const followingCount = useMemo(() => githubUsers.filter((user) => user.following).length, [githubUsers]);
 
   return (
     <div className='w-full flex flex-row gap-3'>

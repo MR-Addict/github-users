@@ -1,6 +1,6 @@
 import Client from "./Client";
 import pageSession from "@/lib/auth";
-import { getUsers } from "@/lib/github";
+import { getUsers, readLocalUsers } from "@/lib/github";
 import { Logout, Login } from "@/components";
 import { ClientContextProvider } from "./contexts";
 
@@ -12,6 +12,7 @@ export default async function Home() {
 
   const token = session.accessToken;
   const users = await getUsers(token);
+  // const users = readLocalUsers();
 
   return (
     <ClientContextProvider users={users}>
