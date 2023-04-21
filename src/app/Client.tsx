@@ -42,13 +42,13 @@ export default function Client({ token, avatar }: { token: string; avatar: strin
   }
 
   return (
-    <main className='w-full flex flex-col'>
+    <main className='flex-1 w-full flex flex-col'>
       <section className='w-full px-5 md:px-48 py-5 shadow-sm z-10 border-b border-gray-300 bg-white sticky top-0 text-sm flex flex-col md:flex-row items-center justify-between gap-3'>
         <Avatar avatar={avatar} />
         <Searchbar />
       </section>
 
-      <section className='bg-gray-100 w-full flex flex-col items-center gap-5 px-5 md:px-48 py-5'>
+      <section className='flex-1 bg-gray-100 w-full flex flex-col items-center justify-between gap-7 px-5 md:px-48 py-5'>
         {/* got results */}
         {currentUsers.length > 0 && (
           <ul className='w-full flex flex-col'>
