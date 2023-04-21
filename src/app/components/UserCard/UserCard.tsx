@@ -3,7 +3,7 @@ import { GoLocation } from "react-icons/go";
 import { HiOutlineBuildingOffice } from "react-icons/hi2";
 import { AiOutlineMail, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
-import FollowButton from "../FollowButton/FollowButton";
+import FollowButton from "./FollowButton";
 import style from "./UserCard.module.css";
 import { UserType } from "@/types/user";
 import { Tooltip } from "@/components";
