@@ -1,7 +1,7 @@
 "use client";
 
 import classNames from "classnames";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { useClientContext } from "./contexts";
 import { UserCard, Avatar, Searchbar } from "./components";
@@ -9,7 +9,7 @@ import { UserCard, Avatar, Searchbar } from "./components";
 export default function Client({ token, avatar }: { token: string; avatar: string }) {
   const leftSide = 1;
   const buttonsWidth = 5;
-  const usersPerPage = 10;
+  const usersPerPage = 30;
   const { githubUsers, currentPage, setCurrentPage } = useClientContext();
 
   const totalPages = useMemo(

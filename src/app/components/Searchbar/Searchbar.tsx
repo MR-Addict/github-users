@@ -22,16 +22,27 @@ function searchUsers(users: UserType[], searchKeywords: string) {
 }
 
 export default function Searchbar() {
-  const { rawUsers, setGithubUsers, setCurrentPage } = useClientContext();
   const [filter, setFilter] = useState<FilterType>("all");
   const [searchKeywords, setSearchKeywords] = useState("");
-
-  useEffect(() => setGithubUsers(filterUsers(rawUsers, filter)), [filter, rawUsers]);
+  const { rawUsers, setGithubUsers, setCurrentPage } = useClientContext();
 
   useEffect(() => {
-    const timer = setTimeout(() => setGithubUsers(searchUsers(filterUsers(rawUsers, filter), searchKeywords)), 500);
+    setCurrentPage(0);
+    setGithubUsers(filterUsers(rawUsers, filter));
+  }, [filter]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCurrentPage(0);
+      setGithubUsers(searchUsers(filterUsers(rawUsers, filter), searchKeywords));
+    }, 500);
     return () => clearTimeout(timer);
-  }, [searchKeywords, rawUsers]);
+  }, [searchKeywords]);
+
+  useEffect(() => {
+    setFilter("all");
+    setSearchKeywords("");
+  }, [rawUsers]);
 
   return (
     <div className='w-full flex flex-col md:flex-row justify-end gap-3'>
@@ -40,10 +51,7 @@ export default function Searchbar() {
           value={searchKeywords}
           placeholder='Search...'
           name='filter searchKeywords'
-          onChange={(e) => {
-            setCurrentPage(0);
-            setSearchKeywords(e.target.value);
-          }}
+          onChange={(e) => setSearchKeywords(e.target.value)}
           className='w-full md:max-w-xs py-1 px-2 rounded-md border border-gray-500 outline-none focus:border-blue-600'
         />
       </div>
@@ -51,11 +59,8 @@ export default function Searchbar() {
       <select
         value={filter}
         name='filter type'
-        onChange={(e) => {
-          setCurrentPage(0);
-          // @ts-expect-error
-          setFilter(e.target.value);
-        }}
+        // @ts-expect-error
+        onChange={(e) => setFilter(e.target.value)}
         className='border border-gray-500 py-1 px-2 outline-none rounded-md focus:border-blue-600'
       >
         <option value='all'>All</option>
