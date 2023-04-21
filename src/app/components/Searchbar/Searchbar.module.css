@@ -13,7 +13,8 @@
   }
 
   .menu:hover ~ .frame,
-  .frame:focus-within {
+  .frame:focus-within,
+  .frame:hover {
     @apply scale-y-100 opacity-100 visible;
   }
 }
