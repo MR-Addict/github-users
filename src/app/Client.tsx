@@ -43,7 +43,7 @@ export default function Client({ token, avatar }: { token: string; avatar: strin
 
   return (
     <main className='flex-1 w-full flex flex-col'>
-      <section className='w-full px-5 md:px-48 py-5 shadow-sm z-10 border-b border-gray-300 bg-white sticky top-0 text-sm flex flex-col md:flex-row items-center justify-between gap-3'>
+      <section className='w-full px-5 md:px-48 py-3 md:py-5 shadow-sm z-10 border-b border-gray-300 bg-white sticky top-0 text-sm flex flex-row items-center justify-between gap-3'>
         <Avatar avatar={avatar} />
         <Searchbar />
       </section>
