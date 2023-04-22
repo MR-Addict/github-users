@@ -47,8 +47,8 @@ export default function Searchbar() {
   }, [rawUsers]);
 
   return (
-    <>
-      <button type='button' aria-label='menu button' className={style.menu}>
+    <section aria-label='menu' className='w-full'>
+      <button type='button' aria-label='menu button' className={style["menu-btn"]}>
         <BsThreeDotsVertical />
       </button>
 
@@ -58,7 +58,7 @@ export default function Searchbar() {
             value={searchKeywords}
             placeholder='Search...'
             name='filter searchKeywords'
-            onChange={(e) => setSearchKeywords(e.target.value)}
+            onChange={(e) => setSearchKeywords(e.target.value.toLowerCase())}
             className='w-full md:max-w-xs py-1 px-2 rounded-md border border-gray-500 outline-none focus:border-blue-600'
           />
         </div>
@@ -77,6 +77,6 @@ export default function Searchbar() {
           <option value='followingbutnotfollowers'>Following But Not Followers</option>
         </select>
       </div>
-    </>
+    </section>
   );
 }

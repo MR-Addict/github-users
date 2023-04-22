@@ -14,14 +14,8 @@ export default function Avatar({ avatar }: { avatar: string }) {
   const followingCount = useMemo(() => githubUsers.filter((user) => user.following).length, [githubUsers]);
 
   return (
-    <div className='w-full flex flex-row gap-3'>
-      <Image
-        alt='avatar'
-        width={100}
-        height={100}
-        src={avatar}
-        className='hidden md:block w-6 h-6 md:w-8 md:h-8 rounded-full'
-      />
+    <div className='flex flex-row gap-1 md:gap-2'>
+      <Image alt='avatar' width={100} height={100} src={avatar} className='w-6 h-6 md:w-7 md:h-7 rounded-full' />
 
       <div className='flex flex-row items-center whitespace-nowrap gap-0.5'>
         <p className='text-gray-500'>
