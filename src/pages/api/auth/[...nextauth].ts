@@ -13,8 +13,8 @@ export const authOptions: NextAuthOptions = {
     GitHubProvider({
       clientId: env.GITHUB_CLIENTID,
       clientSecret: env.GITHUB_SECRET,
-      authorization: { params: { scope: "read:user user:follow" } },
-    }),
+      authorization: { params: { scope: "read:user user:follow" } }
+    })
   ],
 
   callbacks: {
@@ -25,8 +25,8 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       session.accessToken = token.accessToken;
       return session;
-    },
-  },
+    }
+  }
 };
 
 export default NextAuth(authOptions);

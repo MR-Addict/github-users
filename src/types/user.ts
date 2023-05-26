@@ -9,13 +9,13 @@ const GithubUser = z.object({
   email: z.union([z.string(), z.null()]).optional(),
   bio: z.union([z.string(), z.null()]).optional(),
   location: z.union([z.string(), z.null()]).optional(),
-  company: z.union([z.string(), z.null()]).optional(),
+  company: z.union([z.string(), z.null()]).optional()
 });
 
 const User = GithubUser.merge(
   z.object({
     follower: z.boolean(),
-    following: z.boolean(),
+    following: z.boolean()
   })
 );
 

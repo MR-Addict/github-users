@@ -17,7 +17,7 @@ const ClientContext = createContext<ClientContextProps>({
   setCurrentPage(value: number) {},
   rawUsers: [],
   githubUsers: [],
-  setGithubUsers(value: UserType[]) {},
+  setGithubUsers(value: UserType[]) {}
 });
 
 interface ClientContextProviderProps {

@@ -26,7 +26,7 @@ export default function Client({ token, avatar }: { token: string; avatar: strin
   function Button({ page }: { page: number }) {
     return (
       <button
-        type='button'
+        type="button"
         onClick={() => {
           setCurrentPage(page);
           window.scroll({ top: 0, behavior: "auto" });
@@ -42,19 +42,19 @@ export default function Client({ token, avatar }: { token: string; avatar: strin
   }
 
   return (
-    <main className='flex-1 w-full flex flex-col'>
-      <header className='w-full px-5 md:px-48 py-3 md:py-5 shadow-sm z-10 border-b border-gray-300 bg-white sticky top-0 text-sm flex flex-row items-center justify-between gap-3'>
+    <main className="flex-1 w-full flex flex-col">
+      <header className="w-full px-5 md:px-48 py-3 md:py-5 shadow-sm z-10 border-b border-gray-300 bg-white sticky top-0 text-sm flex flex-row items-center justify-between gap-3">
         <Avatar avatar={avatar} />
         <Searchbar />
       </header>
 
       <section
-        aria-label='users body'
-        className='flex-1 bg-gray-100 w-full flex flex-col items-center justify-between gap-10 px-5 md:px-48 pt-5 pb-10'
+        aria-label="users body"
+        className="flex-1 bg-gray-100 w-full flex flex-col items-center justify-between gap-10 px-5 md:px-48 pt-5 pb-10"
       >
         {/* got results */}
         {currentUsers.length > 0 && (
-          <ul className='w-full flex flex-col'>
+          <ul className="w-full flex flex-col">
             {currentUsers.map((user) => (
               <UserCard token={token} user={user} key={user.id} />
             ))}
@@ -62,15 +62,15 @@ export default function Client({ token, avatar }: { token: string; avatar: strin
         )}
 
         {/* no results */}
-        {currentUsers.length === 0 && <h1 className='my-auto'>No results</h1>}
+        {currentUsers.length === 0 && <h1 className="my-auto">No results</h1>}
 
-        <section aria-label='pagination' className='flex flex-row items-center gap-1.5'>
+        <section aria-label="pagination" className="flex flex-row items-center gap-1.5">
           {/* first button */}
           {currentUsers.length > 0 && <Button page={0} />}
 
           {/* dots */}
           {totalPages > buttonsWidth + 2 && currentPage - Math.floor(buttonsWidth / 2) > leftSide && (
-            <div className='place-items-center'>...</div>
+            <div className="place-items-center">...</div>
           )}
 
           {/* other buttons */}
@@ -86,7 +86,7 @@ export default function Client({ token, avatar }: { token: string; avatar: strin
 
           {/* dots */}
           {totalPages > buttonsWidth + 2 && currentPage + Math.ceil(buttonsWidth / 2) < totalPages - 1 && (
-            <div className='place-items-center'>...</div>
+            <div className="place-items-center">...</div>
           )}
 
           {/* last button show only page are more than one page */}

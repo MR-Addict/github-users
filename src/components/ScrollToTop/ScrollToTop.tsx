@@ -21,8 +21,8 @@ export default function ScrollToTop() {
 
   return (
     <button
-      type='button'
-      aria-label='scroll to top'
+      type="button"
+      aria-label="scroll to top"
       onClick={() => window.scroll({ top: 0, behavior: "smooth" })}
       className={classNames(isVisiable ? "scale-100" : "scale-0", "gradient-bg", style.btn)}
     >

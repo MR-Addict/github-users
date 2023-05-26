@@ -21,8 +21,8 @@ export default function FollowButton({ token, user }: { token: string; user: Use
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github+json",
-        "X-GitHub-Api-Version": "2022-11-28",
-      },
+        "X-GitHub-Api-Version": "2022-11-28"
+      }
     })
       .then((res) => {
         if (res.status === 204) {
@@ -39,7 +39,7 @@ export default function FollowButton({ token, user }: { token: string; user: Use
 
   return (
     <button
-      type='button'
+      type="button"
       onClick={handleClick}
       disabled={isSubmitting}
       className={classNames(

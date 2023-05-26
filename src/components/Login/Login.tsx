@@ -11,9 +11,9 @@ export default function Login() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (
-    <main className='w-full flex-1 flex flex-col items-center justify-center'>
+    <main className="w-full flex-1 flex flex-col items-center justify-center">
       <button
-        type='button'
+        type="button"
         disabled={isSubmitting}
         className={classNames(style.btn, "gradient-bg")}
         onClick={() => {
